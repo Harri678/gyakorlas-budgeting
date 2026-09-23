@@ -133,6 +133,32 @@ export class AppController {
     }
   }
 
+  @Get("/stats")
+  @Render('stats')
+  getStats() {
+    const kategoriak = ["food", "utilities", "entertainment", "misc"]
+
+    let adatok: Object[] = [];
+    kategoriak.forEach(name => {
+      const filtereltAdatok = this.expenses.filter(item => item.category.toString() == name);
+      const osszeg = filtereltAdatok.map(item => { return item.amount }).reduce((total, num) => total += num)
+      const properties = {
+        name: name,
+        koltesekSzama: filtereltAdatok.length,
+        osszeg: osszeg,
+        atlag: osszeg / filtereltAdatok.length
+      };
+
+      adatok.push(properties);
+    });
+
+    return {
+      koltesSzam: this.expenses.length,
+      atlag: this.expenses.map(item => { return item.amount }).reduce((total, num) => total += num) / this.expenses.length,
+      data: adatok
+
+    }
+  }
 
 
 }

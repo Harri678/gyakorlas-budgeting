@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+     <h1><%= title  %> </h1>
+    <a href="/">Fooldal</a>
+    <a href="/all">All</a>
+    <a href="/top3">Top3</a>
+    <a href="/search">Search</a>
+    <a href="/expensive">Expensive</a>
+    <a href="/stats">Stats</a>
+
+    <h2>Draga kiadasok</h2>
+
+     <form action="/expensive">
+          <label for="amount">Osszeg: </label>
+          <input type="number" name="amount" id="amount">
+          <button type="submit">Search</button>
+     </form>
+
+     <% if(expenses.lenght === 0){ %>
+          <p>nincs talalat</p>
+
+     <% }else{ %>
+          <table>
+               <thead>
+                    <tr>
+                         <th>Megneveze</th>
+                         <th>Osszeg</th>
+                         <th>Kategoria</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <% expenses.forEach(expense => {%>
+                         <tr class="<%= expense.category %> ">
+                              <td><%= expense.name %> </td>
+                              <td><%= expense.amount %> </td>
+                              <td><%= expense.category %> </td>
+                         </tr>
+                         <% }); %> 
+                         
+                    </tbody>
+               </table> 
+     <% } %> 
+</body>
+</html>
